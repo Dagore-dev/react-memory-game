@@ -1,6 +1,9 @@
-import Emoji from '../components/Emoji'
+import { useState } from 'react'
 import PrimaryLayout from '../layouts/PrimaryLayout'
 import getBoardContent from '../services/getBoardContent'
+import Board from '../components/Board'
+import Button from '../components/Button'
+import { useLocation } from 'wouter'
 
 interface Props {
   level: string
@@ -8,11 +11,23 @@ interface Props {
 
 export default function Game (props: Props): JSX.Element {
   const { level } = props
-  const fruits = getBoardContent(Number(level))
+  const [fruits, setFruits] = useState(getBoardContent(Number(level)))
+  const [, setLocation] = useLocation()
+
+  function handleNewGame (): void {
+    setFruits(getBoardContent(Number(level)))
+  }
+
+  function handleBack (): void {
+    setLocation('../')
+  }
+
   return (
     <PrimaryLayout>
-      <div className='grid grid-cols-4 text-4xl gap-8'>
-        {fruits.map(fruit => <Emoji key={crypto.randomUUID()} symbol={fruit} />)}
+      <Board elements={fruits} />
+      <div className='text-center'>
+        <Button onClick={handleNewGame}>Nueva partida</Button>
+        <Button onClick={handleBack}>Volver</Button>
       </div>
     </PrimaryLayout>
   )

@@ -1,4 +1,5 @@
 import { useLocation } from 'wouter'
+import Button from './Button'
 
 interface Props {
   content: string
@@ -17,9 +18,10 @@ export default function ModeOption (props: Props): JSX.Element {
     <li
       data-value={value}
       onClick={handleClick}
-      className='text-center font-black text-fuchsia-500 w-56 rounded mb-4 bg-[var(--option-color)] hover:scale-105 shadow'
     >
-      {content}
+      <Button>
+        {content}
+      </Button>
     </li>
   )
 }
