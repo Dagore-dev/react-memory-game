@@ -1,4 +1,6 @@
+import Emoji from '../components/Emoji'
 import PrimaryLayout from '../layouts/PrimaryLayout'
+import getBoardContent from '../services/getBoardContent'
 
 interface Props {
   level: string
@@ -6,10 +8,12 @@ interface Props {
 
 export default function Game (props: Props): JSX.Element {
   const { level } = props
-
+  const fruits = getBoardContent(Number(level))
   return (
     <PrimaryLayout>
-      <h1 className='text-center font-black text-fuchsia-500'>{`Nivel ${level}`}</h1>
+      <div className='grid grid-cols-4 text-4xl gap-8'>
+        {fruits.map(fruit => <Emoji key={crypto.randomUUID()} symbol={fruit} />)}
+      </div>
     </PrimaryLayout>
   )
 }
