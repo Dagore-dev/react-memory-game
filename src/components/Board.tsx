@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+// eslint-disable-next-line
 import Card from '../interfaces/Card'
+import useBoard from '../hooks/useBoard'
 import MemoryCard from './MemoryCard/MemoryCard'
-import getBoardContent from '../services/getBoardContent'
 
 interface Props {
   level: string
@@ -9,45 +9,13 @@ interface Props {
 
 export default function Board (props: Props): JSX.Element {
   const { level } = props
-  const [content, setContent] = useState(getBoardContent(Number(level)))
-  const [choiceOne, setChoiceOne] = useState<Card | undefined>()
-  const [choiceTwo, setChoiceTwo] = useState<Card | undefined>()
-  const [turns, setTurns] = useState<number>(0)
-
-  useEffect(() => {
-    if (choiceOne != null && choiceTwo != null) {
-      if (choiceOne.value === choiceTwo.value) {
-        setContent(previous => previous.map(card => {
-          if (card.value === choiceOne.value) {
-            return {
-              ...card,
-              matched: true
-            }
-          } else {
-            return card
-          }
-        }))
-
-        resetTurn()
-      } else {
-        setTimeout(resetTurn, 500)
-      }
-    }
-  }, [choiceOne, choiceTwo])
-
-  function handleChoice (card: Card): void {
-    if (choiceOne != null) {
-      setChoiceTwo(card)
-    } else {
-      setChoiceOne(card)
-    }
-  }
-
-  function resetTurn (): void {
-    setChoiceOne(undefined)
-    setChoiceTwo(undefined)
-    setTurns(previous => previous + 1)
-  }
+  const {
+    content,
+    choiceOne,
+    choiceTwo,
+    turns,
+    handleChoice
+  } = useBoard(level)
 
   if (content.every(card => card.matched)) {
     return (
