@@ -1,14 +1,15 @@
 interface Props {
-  label?: string
   symbol: string
+  label?: string
+  className?: string
 }
 
 export default function Emoji (props: Props): JSX.Element {
-  const { label, symbol } = props
+  const { symbol, label, className } = props
 
   return (
     <span
-      className='emoji'
+      className={`emoji ${className ?? ''}`}
       role='img'
       aria-label={label ?? ''}
       aria-hidden={label ? 'false' : 'true'}

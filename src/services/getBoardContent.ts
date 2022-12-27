@@ -1,7 +1,7 @@
 import { randomIntegerBetween } from '../utils/randomInteger'
 import { shuffleArray } from '../utils/shuffleArray'
 
-export default function getBoardContent (level: number): string[] {
+export default function getBoardContent (level: number): Array<{ value: string, matched: boolean }> {
   const firstFruit = 127815
   const lastFruit = 127827
   const numberOfFruits = getNumberOfFruits(level)
@@ -12,7 +12,7 @@ export default function getBoardContent (level: number): string[] {
     fruitsSet.add(randomFruit)
   }
 
-  return encodeDuplicateAndShuffle(Array.from(fruitsSet))
+  return encodeDuplicateAndShuffle(Array.from(fruitsSet)).map(fruit => { return { value: fruit, matched: false } })
 }
 
 function getNumberOfFruits (level: number): number {
