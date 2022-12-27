@@ -19,7 +19,7 @@ export default function MemoryCard (props: Props): JSX.Element {
     <div className='card'>
       <div className={flipped ? ' flipped' : ''}>
         <Emoji symbol={card.value} label={undefined} className='front card block w-14 h-14' />
-        <div onClick={handleClick} className='w-14 h-14 bg-[var(--option-color)] rounded shadow' />
+        <div onClick={handleClick} className='back card w-14 h-14 bg-[var(--option-color)] rounded border border-fuchsia-500 shadow' />
       </div>
     </div>
   )
